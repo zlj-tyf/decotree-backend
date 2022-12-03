@@ -22,6 +22,7 @@ class LocalConfig(Config):
 
 class ProductionConfig(Config):
     DEBUG: str = False
+    APP_PORT: int = 80
 
 
 def get_config():
