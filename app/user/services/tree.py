@@ -4,6 +4,7 @@ from app.user.enums.tree import (
     BrightnessLevelEnum, SongTypeEnum, TreeTypeEnum,
     WeatherEnum,
 )
+from app.user.models.tree import Tree
 from app.user.repositories.tree import TreeRepository
 from app.user.schemas.tree import TreeSchema
 from core.db import Transactional
@@ -11,7 +12,7 @@ from core.db import Transactional
 
 class TreeService:
     def __init__(self):
-        self.tree_repo = TreeRepository()
+        self.tree_repo = TreeRepository(Tree)
 
     async def get_tree_by_user_hash(self, user_hash: str) -> Optional[TreeSchema]:
         return await self.tree_repo.get_tree_by_user_hash(user_hash)

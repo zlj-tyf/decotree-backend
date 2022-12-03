@@ -9,18 +9,14 @@ from app.user.schemas.tree import TreeSchema
 
 
 class SaveTreeRequest(TreeSchema):
-    song_url: Optional[str] = Field(include_in_schema=False)
-
     class Config:
         schema_extra = {
             "example": {
-                "data": {
-                    "tree_type": "family",
-                    "brightness": "brightest",
-                    "has_santa": True,
-                    "weather": "snow",
-                    "song_type": "kpop",
-                }
+                "tree_type": "family",
+                "brightness": "brightest",
+                "has_santa": True,
+                "weather": "snow",
+                "song_type": "kpop",
             }
         }
 

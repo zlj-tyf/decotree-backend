@@ -15,7 +15,8 @@ from core.repository.base import BaseRepo
 class TreeRepository(BaseRepo):
     async def get_tree_by_user_hash(self, user_hash: str) -> Optional[TreeSchema]:
         query = select(self.model).where(self.model.user_hash == user_hash)
-        tree = await session.execute(query).scalars().first()
+        tree = await session.execute(query)
+        tree = tree.scalars().first()
 
         if not tree:
             return None
@@ -31,17 +32,17 @@ class TreeRepository(BaseRepo):
         song_type: SongTypeEnum,
         song_id: Optional[int] = None,
     ) -> TreeSchema:
-        _model = TreeSchema(
+        _model = Tree(
             user_hash=user_hash,
-            tree_type=tree_type,
-            brightness=brightness,
+            tree_type=tree_type.value,
+            brightness=brightness.value,
             has_santa=has_santa,
-            weather=weather,
-            song_type=song_type,
+            weather=weather.value,
+            song_type=song_type.value,
         )
         if song_id is not None:
             _model.song_id = song_id
 
-        _model = await session.add(_model)
-        session.flush()
-        return _model
+        session.add(_model)
+        await session.flush()
+        return TreeSchema.from_orm(_model)

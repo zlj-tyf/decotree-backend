@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from api import router
+from core.db.session import Base, engines
 from core.exceptions import CustomException
 from core.fastapi.dependencies import Logging
 from core.fastapi.middlewares import (
@@ -59,3 +60,11 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+
+
+# @app.on_event("startup")
+# async def init_tables():
+#     engine = engines.get("writer")
+#     async with engine.begin() as conn:
+#         await conn.run_sync(Base.metadata.drop_all)
+#         await conn.run_sync(Base.metadata.create_all)

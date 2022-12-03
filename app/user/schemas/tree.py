@@ -15,3 +15,6 @@ class TreeSchema(BaseModel):
     weather: WeatherEnum = Field(description="날씨 애니메이션 노출 여부")
     song_type: SongTypeEnum = Field(description="좋아하는 노래 유형")
     song_id: Optional[int] = Field(None, description="Apple Music id")
+
+    class Config:
+        orm_mode = True
