@@ -1,6 +1,20 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
+from app.user.schemas.tree import TreeSchema
 
 
-class RefreshTokenResponse(BaseModel):
-    token: str = Field(..., description="Token")
-    refresh_token: str = Field(..., description="Refresh token")
+class SaveTreeResponse(BaseModel):
+    data: TreeSchema
+
+    schema_extra = {
+        "example": {
+            "data": {
+                "tree_type": "family",
+                "brightness": "brightest",
+                "has_santa": True,
+                "weather": "snow",
+                "song_type": "kpop",
+                "song_id": 1234123412,
+            }
+        }
+    }

@@ -1,4 +1,4 @@
-# Decorate-the-Tree
+# Decorate-the-TreeSchema
 ## DecoTree
 성향 테스트 후 결과 페이지로 크리스마스 트리를 노출. 본인이 좋아하는 캐롤을 페이지에 추가해서 공유할 수 있는 서비스입니다.
 

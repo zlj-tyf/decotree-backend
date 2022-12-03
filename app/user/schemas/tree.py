@@ -1,11 +1,17 @@
-from pydantic import BaseModel
+from typing import Optional
 
-from app.user.enums.tree import BrightnessLevelEnum, TreeTypeEnum, WeatherEnum
+from pydantic import BaseModel, Field
+
+from app.user.enums.tree import (
+    BrightnessLevelEnum, SongTypeEnum, TreeTypeEnum,
+    WeatherEnum,
+)
 
 
-class TreeStatus(BaseModel):
-    tree_type: TreeTypeEnum
-    brightness: BrightnessLevelEnum
-    has_santa: bool
-    weather: WeatherEnum
-
+class TreeSchema(BaseModel):
+    tree_type: TreeTypeEnum = Field(description="크리스마스 트리 타입")
+    brightness: BrightnessLevelEnum = Field(description="트리 밝기 정도")
+    has_santa: bool = Field(description="산타 데코 노출 여부")
+    weather: WeatherEnum = Field(description="날씨 애니메이션 노출 여부")
+    song_type: SongTypeEnum = Field(description="좋아하는 노래 유형")
+    song_id: Optional[int] = Field(None, description="Apple Music id")

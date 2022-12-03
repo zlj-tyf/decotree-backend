@@ -1,10 +1,28 @@
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
-from app.user.enums.tree import SongTypeEnum
+from app.user.enums.tree import (
+    SongTypeEnum
+)
+from app.user.schemas.tree import TreeSchema
 
 
-class TreeRequest(BaseModel):
-    user_hash: str = Field(str, description="공유하기 버튼 클릭 -> 중복 안되는 해시값")
+class SaveTreeRequest(TreeSchema):
+    song_url: Optional[str] = Field(include_in_schema=False)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "data": {
+                    "tree_type": "family",
+                    "brightness": "brightest",
+                    "has_santa": True,
+                    "weather": "snow",
+                    "song_type": "kpop",
+                }
+            }
+        }
 
 
 class TreeSongRequest(BaseModel):

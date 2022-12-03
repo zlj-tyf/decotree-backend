@@ -1,24 +1,45 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Path, Response
+from starlette.requests import Request
 
-from api.tree.request.tree import RefreshTokenRequest, VerifyTokenRequest
-from api.tree.response.tree import RefreshTokenResponse
-
-auth_router = APIRouter()
-
-
-@auth_router.post(
-    "/refresh",
-    response_model=RefreshTokenResponse,
-    responses={"400": {"model": ExceptionResponseSchema}},
+from api.tree.request.tree import (
+    SaveTreeRequest,
 )
-async def refresh_token(request: RefreshTokenRequest):
-    token = await JwtService().create_refresh_token(
-        token=request.token, refresh_token=request.refresh_token
+from api.tree.response.tree import SaveTreeResponse
+from app.user.services.tree import TreeService
+from core.exceptions import BadRequestException
+
+tree_router = APIRouter()
+
+
+@tree_router.get(
+    "/tree/{user_hash}",
+    response_model=SaveTreeResponse,
+)
+async def get_tree(
+    request: Request,
+    user_hash: str = Path(title="최종 설문 완료 -> 중복 안되는 해시값 생성")
+):
+    tree = await TreeService().get_tree_by_user_hash(
+        user_hash=user_hash,
     )
-    return {"token": token.token, "refresh_token": token.refresh_token}
+    return {"data": tree}
 
 
-@auth_router.post("/verify")
-async def verify_token(request: VerifyTokenRequest):
-    await JwtService().verify_token(token=request.token)
-    return Response(status_code=200)
+@tree_router.post(
+    "/tree/{user_hash}",
+    response_model=SaveTreeResponse,
+)
+async def save_tree_status(
+    request: Request,
+    body: SaveTreeRequest,
+    user_hash: str = Path(title="최종 설문 완료 -> 중복 안되는 해시값 생성")
+):
+    tree = await TreeService().save_tree(
+        user_hash=user_hash,
+        tree_type=body.tree_type,
+        brightness=body.brightness,
+        has_santa=body.has_santa,
+        weather=body.weather,
+        song_type=body.song_type,
+    )
+    return {"data": tree}

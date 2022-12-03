@@ -6,19 +6,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from api import router
-from api.home.home import home_router
 from core.exceptions import CustomException
 from core.fastapi.dependencies import Logging
 from core.fastapi.middlewares import (
-    AuthenticationMiddleware,
-    AuthBackend,
     SQLAlchemyMiddleware,
     ResponseLogMiddleware,
 )
 
 
 def init_routers(app_: FastAPI) -> None:
-    app_.include_router(home_router)
     app_.include_router(router)
 
 
@@ -49,7 +45,7 @@ def make_middleware() -> List[Middleware]:
 
 def create_app() -> FastAPI:
     app_ = FastAPI(
-        title="Decorate Tree",
+        title="Decorate TreeSchema",
         description="API",
         version="1.0.0",
         docs_url="/docs",
