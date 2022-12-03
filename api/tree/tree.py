@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Response
 
-from api.auth.request.auth import RefreshTokenRequest, VerifyTokenRequest
-from api.auth.response.auth import RefreshTokenResponse
+from api.tree.request.tree import RefreshTokenRequest, VerifyTokenRequest
+from api.tree.response.tree import RefreshTokenResponse
 
 auth_router = APIRouter()
 
