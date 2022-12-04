@@ -4,13 +4,13 @@
 
 
 ## Figma Design
-![](../Documents/스크린샷 2022-12-04 오후 8.11.14.png)
+![](./images/spec_design.png)
 
 ## API Documentation
 - Get tree by user hash
-![](../Documents/스크린샷 2022-12-04 오후 8.08.10.png)
+![](./images/spec_get_tree.png)
 - Save tree
-![](../Documents/스크린샷 2022-12-04 오후 8.08.21.png)
+![](./images/spec_save_tree.png)
 
 
 ### 페이지 플로우
